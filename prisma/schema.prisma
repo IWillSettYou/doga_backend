@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model aruk {
+  id          Int         @id @default(autoincrement())
+  nev         String      @db.Text
+  kategoriaId Int?
+  leiras      String?     @db.Text
+  keszlet     Int?
+  ar          Int?
+  kepUrl      String?     @db.Text
+  kategoriak  kategoriak? @relation(fields: [kategoriaId], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "aruk_ibfk_1")
+
+  @@index([kategoriaId], map: "kategoriaId")
+}
+
+model kategoriak {
+  id   Int    @id
+  nev  String @db.Text
+  aruk aruk[]
+}
