@@ -56,7 +56,7 @@ app.delete('/api/flowers/:id', async (req, res) => {
 
 });
 
-app.get('api/categories', async (req, res) => {
+app.get('/api/categories', async (req, res) => {
     const data = await prisma.kategoriak.findMany();
     res.status(200).json(data);
 });
